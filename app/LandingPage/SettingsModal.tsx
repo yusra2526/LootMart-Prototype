@@ -1,14 +1,41 @@
-// components/SettingsModal.tsx
+"use client";
+
 import React from 'react';
 import { Settings, X, User, MapPin, Bell, Lock, Edit2 } from 'lucide-react';
 
-const SettingsModal = ({ showSettings, setShowSettings, user, selectedLocation, notifications, setNotifications, isLoggedIn }) => {
-  if (!showSettings || !isLoggedIn) return null;
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+  joinDate: string;
+  address: string;
+}
+
+interface SettingsModalProps {
+  showSettings: boolean;
+  setShowSettings: (show: boolean) => void;
+  user: User | null;
+  selectedLocation: string;
+  notifications: boolean;
+  setNotifications: (notifications: boolean) => void;
+  isLoggedIn: boolean;
+}
+
+const SettingsModal: React.FC<SettingsModalProps> = ({
+  showSettings,
+  setShowSettings,
+  user,
+  selectedLocation,
+  notifications,
+  setNotifications,
+  isLoggedIn,
+}) => {
+  if (!showSettings || !isLoggedIn || !user) return null;
 
   return (
     <>
       <div 
-        className="fixed inset-0 bg-opacity-10 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-opacity-50 z-40"
         onClick={() => setShowSettings(false)}
       />
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black rounded-lg shadow-2xl p-6 z-50 w-full max-w-md">

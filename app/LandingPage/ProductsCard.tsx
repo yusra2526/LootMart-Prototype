@@ -1,8 +1,31 @@
-// components/ProductCard.tsx
+"use client";
+
 import React from 'react';
 import { Star, Heart } from 'lucide-react';
 
-const ProductCard = ({ product, addToCart, toggleWishlist, isInWishlist }) => {
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  rating: number;
+  image: string;
+  stock: number;
+}
+
+interface ProductCardProps {
+  product: Product;
+  addToCart: (product: Product) => void;
+  toggleWishlist: (product: Product) => void;
+  isInWishlist: (productId: number) => boolean;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  addToCart,
+  toggleWishlist,
+  isInWishlist,
+}) => {
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden group">
       <div className="relative bg-gradient-to-br from-orange-100 to-yellow-100 p-8 flex items-center justify-center h-48">
@@ -35,7 +58,7 @@ const ProductCard = ({ product, addToCart, toggleWishlist, isInWishlist }) => {
           <span className="md:text-md sm:text-xl  font-bold text-orange-600">Rs {product.price.toLocaleString()}</span>
           <button
             onClick={() => addToCart(product)}
-            className="bg-linear-to-r from-orange-500 to-yellow-500 text-white px-4 py-2 rounded-lg hover:from-orange-600 hover:to-yellow-600 transition font-medium"
+            className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-4 py-2 rounded-lg hover:from-orange-600 hover:to-yellow-600 transition font-medium"
           >
             Add
           </button>

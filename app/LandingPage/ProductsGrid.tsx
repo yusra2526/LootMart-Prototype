@@ -1,8 +1,37 @@
-// components/ProductsGrid.tsx
+"use client";
+
 import React from 'react';
 import ProductCard from './ProductsCard';
 
-const ProductsGrid = ({
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  rating: number;
+  image: string;
+  stock: number;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  icon: any;
+}
+
+interface ProductsGridProps {
+  selectedCategory: string;
+  categories: Category[];
+  searchQuery: string;
+  filteredProducts: Product[];
+  addToCart: (product: Product) => void;
+  toggleWishlist: (product: Product) => void;
+  isInWishlist: (productId: number) => boolean;
+  setSearchQuery: (query: string) => void;
+  setSelectedCategory: (category: string) => void;
+}
+
+const ProductsGrid: React.FC<ProductsGridProps> = ({
   selectedCategory,
   categories,
   searchQuery,

@@ -1,8 +1,34 @@
-// components/CheckoutModal.tsx
+"use client";
+
 import React from 'react';
 import { CreditCard, X, MapPin, Zap, CheckCircle } from 'lucide-react';
 
-const CheckoutModal = ({
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+  joinDate: string;
+  address: string;
+}
+
+interface CheckoutModalProps {
+  showCheckout: boolean;
+  setShowCheckout: (show: boolean) => void;
+  isLoggedIn: boolean;
+  user: User | null;
+  selectedLocation: string;
+  expressDelivery: boolean;
+  setExpressDelivery: (express: boolean) => void;
+  paymentMethod: string;
+  setPaymentMethod: (method: string) => void;
+  cartCount: number;
+  cartTotal: number;
+  deliveryFee: number;
+  expressDeliveryFee: number;
+  finalTotal: number;
+}
+
+const CheckoutModal: React.FC<CheckoutModalProps> = ({
   showCheckout,
   setShowCheckout,
   isLoggedIn,
@@ -23,7 +49,7 @@ const CheckoutModal = ({
   return (
     <>
       <div 
-        className="fixed inset-0 bg-opacity-10 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-black bg-opacity-50 z-40"
         onClick={() => setShowCheckout(false)}
       />
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black rounded-lg shadow-2xl p-6 z-50 w-full max-w-lg max-h-[90vh] overflow-y-auto">
@@ -43,7 +69,7 @@ const CheckoutModal = ({
             <MapPin size={18} className="text-orange-500" />
             Delivery Address
           </h4>
-          {isLoggedIn ? (
+          {isLoggedIn && user ? (
             <div>
               <p className="text-sm text-gray-600">{user.name}</p>
               <p className="text-sm text-gray-600">{user.address}</p>
@@ -64,11 +90,11 @@ const CheckoutModal = ({
             </div>
             <button
               onClick={() => setExpressDelivery(!expressDelivery)}
-              className={`w-12 h-6 rounded-full transition ${
+              className={`w-12 h-6 rounded-full transition-all duration-300 ${
                 expressDelivery ? 'bg-orange-500' : 'bg-gray-300'
               }`}
             >
-              <div className={`w-5 h-5 bg-white rounded-full transition transform ${
+              <div className={`w-5 h-5 bg-white rounded-full transition-all duration-300 transform ${
                 expressDelivery ? 'translate-x-6' : 'translate-x-1'
               }`} />
             </button>
@@ -85,7 +111,7 @@ const CheckoutModal = ({
           <div className="space-y-2">
             <button
               onClick={() => setPaymentMethod('cod')}
-              className={`w-full text-left p-3 rounded-lg border-2 transition ${
+              className={`w-full text-left p-3 rounded-lg border-2 transition-all duration-200 ${
                 paymentMethod === 'cod'
                   ? 'border-orange-500 bg-orange-50'
                   : 'border-gray-200 hover:border-orange-300'
@@ -98,7 +124,7 @@ const CheckoutModal = ({
             </button>
             <button
               onClick={() => setPaymentMethod('card')}
-              className={`w-full text-left p-3 rounded-lg border-2 transition ${
+              className={`w-full text-left p-3 rounded-lg border-2 transition-all duration-200 ${
                 paymentMethod === 'card'
                   ? 'border-orange-500 bg-orange-50'
                   : 'border-gray-200 hover:border-orange-300'
@@ -111,7 +137,7 @@ const CheckoutModal = ({
             </button>
             <button
               onClick={() => setPaymentMethod('bank')}
-              className={`w-full text-left p-3 rounded-lg border-2 transition ${
+              className={`w-full text-left p-3 rounded-lg border-2 transition-all duration-200 ${
                 paymentMethod === 'bank'
                   ? 'border-orange-500 bg-orange-50'
                   : 'border-gray-200 hover:border-orange-300'
@@ -152,7 +178,7 @@ const CheckoutModal = ({
           </div>
         </div>
 
-        <button className="w-full bg-linear-to-r from-orange-500 to-yellow-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-yellow-600 transition">
+        <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-yellow-600 transition-all duration-300">
           Place Order
         </button>
       </div>

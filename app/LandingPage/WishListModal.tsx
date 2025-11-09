@@ -1,18 +1,43 @@
-// components/WishlistModal.tsx
+"use client";
+
 import React from 'react';
 import { Heart, X, Trash2, Star } from 'lucide-react';
 
-const WishlistModal = ({ showWishlist, setShowWishlist, wishlist, addWishlistToCart, toggleWishlist }) => {
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  rating: number;
+  image: string;
+  stock: number;
+}
+
+interface WishlistModalProps {
+  showWishlist: boolean;
+  setShowWishlist: (show: boolean) => void;
+  wishlist: Product[];
+  addWishlistToCart: (product: Product) => void;
+  toggleWishlist: (product: Product) => void;
+}
+
+const WishlistModal: React.FC<WishlistModalProps> = ({
+  showWishlist,
+  setShowWishlist,
+  wishlist,
+  addWishlistToCart,
+  toggleWishlist,
+}) => {
   if (!showWishlist) return null;
 
   return (
     <>
       <div 
-        className="fixed inset-0 bg-opacity-10 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-opacity-50 z-40"
         onClick={() => setShowWishlist(false)}
       />
       <div className="fixed top-0 right-0 h-full text-black bg-white w-full md:w-96 z-50 shadow-2xl overflow-y-auto">
-        <div className="sticky top-0 bg-linear-to-r from-orange-500 to-yellow-500 text-white p-4 flex items-center justify-between">
+        <div className="sticky top-0 bg-gradient-to-r from-orange-500 to-yellow-500 text-white p-4 flex items-center justify-between">
           <h3 className="font-bold text-xl flex items-center gap-2">
             <Heart size={24} />
             Wishlist ({wishlist.length})
@@ -41,7 +66,7 @@ const WishlistModal = ({ showWishlist, setShowWishlist, wishlist, addWishlistToC
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => addWishlistToCart(item)}
-                          className="flex-1 bg-linear-to-r from-orange-500 to-yellow-500 text-white px-3 py-1.5 rounded text-sm font-medium hover:from-orange-600 hover:to-yellow-600 transition"
+                          className="flex-1 bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-3 py-1.5 rounded text-sm font-medium hover:from-orange-600 hover:to-yellow-600 transition"
                         >
                           Add to Cart
                         </button>

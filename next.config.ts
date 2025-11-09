@@ -1,7 +1,14 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const isGithubPages = process.env.NODE_ENV === 'production';
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true
+  },
+  basePath: isGithubPages ? '/lootmart' : '',
+  assetPrefix: isGithubPages ? '/lootmart/' : '',
+}
 
-export default nextConfig;
+module.exports = nextConfig

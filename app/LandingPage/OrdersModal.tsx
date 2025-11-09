@@ -1,14 +1,45 @@
-// components/OrdersModal.tsx
-import React from 'react';
-import { Package, X, Clock } from 'lucide-react';
+"use client";
 
-const OrdersModal = ({ showOrders, setShowOrders, myOrders, getOrderStatus, isLoggedIn }) => {
+import React from 'react';
+import { Package, X, Clock, LucideIcon } from 'lucide-react';
+
+interface Order {
+  id: string;
+  date: string;
+  status: string;
+  total: number;
+  items: number;
+  products: string[];
+}
+
+interface OrderStatus {
+  text: string;
+  color: string;
+  bg: string;
+  icon: LucideIcon;
+}
+
+interface OrdersModalProps {
+  showOrders: boolean;
+  setShowOrders: (show: boolean) => void;
+  myOrders: Order[];
+  getOrderStatus: (status: string) => OrderStatus;
+  isLoggedIn: boolean;
+}
+
+const OrdersModal: React.FC<OrdersModalProps> = ({
+  showOrders,
+  setShowOrders,
+  myOrders,
+  getOrderStatus,
+  isLoggedIn,
+}) => {
   if (!showOrders || !isLoggedIn) return null;
 
   return (
     <>
       <div 
-        className="fixed inset-0 bg-opacity-10 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-opacity-50 z-40"
         onClick={() => setShowOrders(false)}
       />
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black bg-white rounded-lg shadow-2xl p-6 z-50 w-full max-w-2xl max-h-96 overflow-y-auto">

@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 import React, { useState } from 'react';
 import { Package, Smartphone, Shirt, Sofa, Dumbbell, Sparkles, Baby, Truck, CheckCircle, XCircle } from 'lucide-react';
@@ -17,9 +16,46 @@ import SettingsModal from './LandingPage/SettingsModal';
 import CheckoutModal from './LandingPage/CheckoutModal';
 import LocationModal from './LandingPage/LocationModal';
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  rating: number;
+  image: string;
+  stock: number;
+}
+
+interface CartItem extends Product {
+  quantity: number;
+}
+
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+  joinDate: string;
+  address: string;
+}
+
+interface Order {
+  id: string;
+  date: string;
+  status: string;
+  total: number;
+  items: number;
+  products: string[];
+}
+
+interface Category {
+  id: string;
+  name: string;
+  icon: any;
+}
+
 const LootMart = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [wishlist, setWishlist] = useState<Product[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showCart, setShowCart] = useState(false);
@@ -31,7 +67,7 @@ const LootMart = () => {
   const [showCheckout, setShowCheckout] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('Rawalpindi, Punjab');
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [expressDelivery, setExpressDelivery] = useState(false);
@@ -67,7 +103,7 @@ const LootMart = () => {
     confirmNewPassword: ''
   });
 
-  const categories = [
+  const categories: Category[] = [
     { id: 'all', name: 'All Products', icon: Package },
     { id: 'electronics', name: 'Electronics', icon: Smartphone },
     { id: 'fashion', name: 'Fashion', icon: Shirt },
@@ -77,7 +113,7 @@ const LootMart = () => {
     { id: 'baby', name: 'Baby & Kids', icon: Baby },
   ];
 
-  const cities = [
+  const cities: string[] = [
     'Karachi, Sindh',
     'Lahore, Punjab',
     'Islamabad',
@@ -92,7 +128,7 @@ const LootMart = () => {
     'Bahawalpur, Punjab',
   ];
 
-  const allProducts = [
+  const allProducts: Product[] = [
     { id: 1, name: 'Premium Smartphone X12', price: 45999, category: 'electronics', rating: 4.5, image: '📱', stock: 15 },
     { id: 2, name: 'Wireless Earbuds Pro', price: 3499, category: 'electronics', rating: 4.8, image: '🎧', stock: 30 },
     { id: 3, name: 'Designer Kurta Collection', price: 2999, category: 'fashion', rating: 4.3, image: '👔', stock: 20 },
@@ -107,7 +143,7 @@ const LootMart = () => {
     { id: 12, name: 'Gaming Console Pro', price: 54999, category: 'electronics', rating: 4.9, image: '🎮', stock: 5 },
   ];
 
-  const myOrders = [
+  const myOrders: Order[] = [
     { id: 'ORD-2024-001', date: '2024-11-05', status: 'delivered', total: 48999, items: 2, products: ['📱', '🎧'] },
     { id: 'ORD-2024-002', date: '2024-11-08', status: 'shipped', total: 12999, items: 1, products: ['⌚'] },
     { id: 'ORD-2024-003', date: '2024-11-09', status: 'processing', total: 8999, items: 1, products: ['🪑'] },
@@ -119,7 +155,7 @@ const LootMart = () => {
     return matchesCategory && matchesSearch;
   });
 
-  const addToCart = (product) => {
+  const addToCart = (product: Product) => {
     const existingItem = cartItems.find(item => item.id === product.id);
     if (existingItem) {
       setCartItems(cartItems.map(item =>
@@ -132,11 +168,11 @@ const LootMart = () => {
     }
   };
 
-  const removeFromCart = (productId) => {
+  const removeFromCart = (productId: number) => {
     setCartItems(cartItems.filter(item => item.id !== productId));
   };
 
-  const updateQuantity = (productId, change) => {
+  const updateQuantity = (productId: number, change: number) => {
     setCartItems(cartItems.map(item => {
       if (item.id === productId) {
         const newQuantity = item.quantity + change;
@@ -146,7 +182,7 @@ const LootMart = () => {
     }).filter(item => item.quantity > 0));
   };
 
-  const toggleWishlist = (product) => {
+  const toggleWishlist = (product: Product) => {
     if (wishlist.find(item => item.id === product.id)) {
       setWishlist(wishlist.filter(item => item.id !== product.id));
     } else {
@@ -154,11 +190,11 @@ const LootMart = () => {
     }
   };
 
-  const isInWishlist = (productId) => {
+  const isInWishlist = (productId: number) => {
     return wishlist.some(item => item.id === productId);
   };
 
-  const addWishlistToCart = (product) => {
+  const addWishlistToCart = (product: Product) => {
     addToCart(product);
     setWishlist(wishlist.filter(item => item.id !== product.id));
   };
@@ -211,7 +247,7 @@ const LootMart = () => {
       alert('Please fill all fields!');
       return;
     }
-    
+{/*    
     setUser({
       ...user,
       name: editProfileData.name,
@@ -220,6 +256,7 @@ const LootMart = () => {
     });
     setShowEditProfile(false);
     alert('Profile updated successfully!');
+*/}
   };
   
   const handleEditAddress = () => {
@@ -228,10 +265,12 @@ const LootMart = () => {
       return;
     }
     
+{/*
     setUser({
       ...user,
       address: editAddressData.address
     });
+*/}
     setSelectedLocation(editAddressData.city);
     setShowEditAddress(false);
     alert('Address updated successfully!');
@@ -268,7 +307,7 @@ const LootMart = () => {
   const expressDeliveryFee = expressDelivery ? 300 : 0;
   const finalTotal = cartTotal + deliveryFee + expressDeliveryFee;
 
-  const getOrderStatus = (status) => {
+  const getOrderStatus = (status: string) => {
     switch(status) {
       case 'delivered': return { text: 'Delivered', color: 'text-green-600', bg: 'bg-green-100', icon: CheckCircle };
       case 'shipped': return { text: 'Shipped', color: 'text-blue-600', bg: 'bg-blue-100', icon: Truck };
@@ -335,7 +374,6 @@ const LootMart = () => {
         deliveryFee={deliveryFee}
         updateQuantity={updateQuantity}
         removeFromCart={removeFromCart}
-        showCheckout={showCheckout}
         setShowCheckout={setShowCheckout}
         closeAllModals={closeAllModals}
       />

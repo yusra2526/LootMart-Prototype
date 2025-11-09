@@ -1,8 +1,21 @@
-// components/LocationBar.tsx
+"use client";
+
 import React from 'react';
 import { MapPin } from 'lucide-react';
 
-const LocationBar = ({ selectedLocation, showLocation, setShowLocation, closeAllModals }) => {
+interface LocationBarProps {
+  selectedLocation: string;
+  showLocation: boolean;
+  setShowLocation: (show: boolean) => void;
+  closeAllModals: () => void;
+}
+
+const LocationBar: React.FC<LocationBarProps> = ({
+  selectedLocation,
+  showLocation,
+  setShowLocation,
+  closeAllModals,
+}) => {
   return (
     <div className="bg-white shadow-md py-3">
       <div className="container mx-auto px-4">

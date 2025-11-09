@@ -1,8 +1,44 @@
-// components/ProfileModal.tsx
+"use client";
+
 import React from 'react';
 import { User, X, Package, Heart, Settings, LogOut, Clock, Phone } from 'lucide-react';
 
-const ProfileModal = ({
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+  joinDate: string;
+  address: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  rating: number;
+  image: string;
+  stock: number;
+}
+
+interface ProfileModalProps {
+  showProfile: boolean;
+  setShowProfile: (show: boolean) => void;
+  isLoggedIn: boolean;
+  user: User | null;
+  wishlist: Product[];
+  handleLogin: () => void;
+  handleLogout: () => void;
+  showOrders: boolean;
+  setShowOrders: (show: boolean) => void;
+  showWishlist: boolean;
+  setShowWishlist: (show: boolean) => void;
+  showSettings: boolean;
+  setShowSettings: (show: boolean) => void;
+  closeAllModals: () => void;
+}
+
+const ProfileModal: React.FC<ProfileModalProps> = ({
   showProfile,
   setShowProfile,
   isLoggedIn,
@@ -23,7 +59,7 @@ const ProfileModal = ({
   return (
     <>
       <div 
-        className="fixed inset-0 bg-opacity-10 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-opacity-50 z-40"
         onClick={() => setShowProfile(false)}
       />
       <div className="fixed top-20 right-4 text-black bg-white rounded-lg shadow-2xl p-6 z-50 w-80">
@@ -37,9 +73,9 @@ const ProfileModal = ({
           </button>
         </div>
         
-        {isLoggedIn ? (
+        {isLoggedIn && user ? (
           <div>
-            <div className="bg-linear-to-r from-orange-100 to-yellow-100 p-4 rounded-lg mb-4">
+            <div className="bg-gradient-to-r from-orange-100 to-yellow-100 p-4 rounded-lg mb-4">
               <div className="flex items-center gap-3 mb-3">
                 <div className="bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">
                   {user.name.charAt(0)}
@@ -106,7 +142,7 @@ const ProfileModal = ({
             <p className="text-gray-600 mb-4">Sign in to access your account and orders</p>
             <button 
               onClick={handleLogin}
-              className="w-full bg-linear-to-r from-orange-500 to-yellow-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-yellow-600 transition mb-2"
+              className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-yellow-600 transition mb-2"
             >
               Login
             </button>

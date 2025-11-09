@@ -1,14 +1,29 @@
-// components/LocationModal.tsx
+"use client";
+
 import React from 'react';
 import { MapPin, X } from 'lucide-react';
 
-const LocationModal = ({ showLocation, setShowLocation, cities, selectedLocation, setSelectedLocation }) => {
+interface LocationModalProps {
+  showLocation: boolean;
+  setShowLocation: (show: boolean) => void;
+  cities: string[];
+  selectedLocation: string;
+  setSelectedLocation: (location: string) => void;
+}
+
+const LocationModal: React.FC<LocationModalProps> = ({
+  showLocation,
+  setShowLocation,
+  cities,
+  selectedLocation,
+  setSelectedLocation,
+}) => {
   if (!showLocation) return null;
 
   return (
     <>
       <div 
-        className="fixed inset-0 bg-opacity-10 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-black bg-opacity-50 z-40"
         onClick={() => setShowLocation(false)}
       />
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black rounded-lg shadow-2xl p-6 z-50 w-full max-w-md max-h-96 overflow-y-auto">

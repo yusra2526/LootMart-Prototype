@@ -1,8 +1,45 @@
-// components/Header.tsx
+"use client";
+
 import React from 'react';
 import { Package, Phone, Mail, User, Heart, ShoppingCart, Search, Menu, X, HelpCircle } from 'lucide-react';
 
-const Header = ({
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+  joinDate: string;
+  address: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  rating: number;
+  image: string;
+  stock: number;
+}
+
+interface HeaderProps {
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (open: boolean) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  cartCount: number;
+  wishlist: Product[];
+  isLoggedIn: boolean;
+  user: User | null;
+  showCart: boolean;
+  setShowCart: (show: boolean) => void;
+  showWishlist: boolean;
+  setShowWishlist: (show: boolean) => void;
+  showProfile: boolean;
+  setShowProfile: (show: boolean) => void;
+  closeAllModals: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({
   isMobileMenuOpen,
   setIsMobileMenuOpen,
   searchQuery,
@@ -25,15 +62,15 @@ const Header = ({
         {/* Top Bar */}
         <div className="flex items-center justify-between py-2 border-b border-orange-400 text-sm">
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-1 hover:text-yellow-200 transition">
+            <button className="flex items-center gap-1 hover:text-yellow-200 transition-colors duration-200">
               <Phone size={14} />
               <span>0300-1234567</span>
             </button>
-            <button className="hidden md:flex items-center gap-1 hover:text-yellow-200 transition">
+            <button className="hidden md:flex items-center gap-1 hover:text-yellow-200 transition-colors duration-200">
               <Mail size={14} />
               <span>support@lootmart.pk</span>
             </button>
-            <button className="hidden md:flex items-center gap-1 hover:text-yellow-200 transition">
+            <button className="hidden md:flex items-center gap-1 hover:text-yellow-200 transition-colors duration-200">
               <HelpCircle size={14} />
               <span>Help</span>
             </button>
@@ -44,7 +81,7 @@ const Header = ({
                 closeAllModals();
                 setShowProfile(!showProfile);
               }}
-              className="hover:text-yellow-200 transition flex items-center gap-1"
+              className="hover:text-yellow-200 transition-colors duration-200 flex items-center gap-1"
             >
               <User size={18} />
               {isLoggedIn && user && <span className="hidden md:inline">{user.name}</span>}
@@ -54,7 +91,7 @@ const Header = ({
                 closeAllModals();
                 setShowWishlist(!showWishlist);
               }}
-              className="hover:text-yellow-200 transition relative"
+              className="hover:text-yellow-200 transition-colors duration-200 relative"
             >
               <Heart size={18} />
               {wishlist.length > 0 && (
@@ -69,12 +106,12 @@ const Header = ({
         {/* Main Header */}
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center gap-2">
-            <h1><span><img src ="./image.png" width="100" height="100"></img></span></h1>
+            <h1><span><img src="/image.png" alt="LootMart" width="100" height="100" /></span></h1>
           </div>
 
           {/* Search Bar */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-8 bg-white rounded-lg">
-            <div className="relative w-full">
+          <div className="hidden md:flex flex-1 max-w-2xl mx-8">
+            <div className="relative bg-white rounded-lg w-full">
               <input
                 type="text"
                 placeholder="Search for products, brands and more..."
@@ -93,7 +130,7 @@ const Header = ({
                 closeAllModals();
                 setShowCart(!showCart);
               }}
-              className="relative hover:scale-110 transition"
+              className="relative hover:scale-110 transition-transform duration-200"
             >
               <ShoppingCart size={28} />
               {cartCount > 0 && (
