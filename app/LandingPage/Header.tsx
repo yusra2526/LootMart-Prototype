@@ -57,20 +57,20 @@ const Header: React.FC<HeaderProps> = ({
   closeAllModals,
 }) => {
   return (
-    <header className="bg-linear-to-r from-orange-500 to-yellow-500 text-white shadow-lg sticky top-0 z-50">
+    <header className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4">
         {/* Top Bar */}
         <div className="flex items-center justify-between py-2 border-b border-orange-400 text-sm">
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-1 hover:text-yellow-200 transition-colors duration-200">
+            <button className="flex items-center gap-1 hover:text-yellow-200 transition">
               <Phone size={14} />
               <span>0300-1234567</span>
             </button>
-            <button className="hidden md:flex items-center gap-1 hover:text-yellow-200 transition-colors duration-200">
+            <button className="hidden md:flex items-center gap-1 hover:text-yellow-200 transition">
               <Mail size={14} />
               <span>support@lootmart.pk</span>
             </button>
-            <button className="hidden md:flex items-center gap-1 hover:text-yellow-200 transition-colors duration-200">
+            <button className="hidden md:flex items-center gap-1 hover:text-yellow-200 transition">
               <HelpCircle size={14} />
               <span>Help</span>
             </button>
@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({
                 closeAllModals();
                 setShowProfile(!showProfile);
               }}
-              className="hover:text-yellow-200 transition-colors duration-200 flex items-center gap-1"
+              className="hover:text-yellow-200 transition flex items-center gap-1"
             >
               <User size={18} />
               {isLoggedIn && user && <span className="hidden md:inline">{user.name}</span>}
@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({
                 closeAllModals();
                 setShowWishlist(!showWishlist);
               }}
-              className="hover:text-yellow-200 transition-colors duration-200 relative"
+              className="hover:text-yellow-200 transition relative"
             >
               <Heart size={18} />
               {wishlist.length > 0 && (
@@ -106,12 +106,12 @@ const Header: React.FC<HeaderProps> = ({
         {/* Main Header */}
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center gap-2">
-            <h1><span><img src="/image.png" alt="LootMart" width="100" height="100" /></span></h1>
+            <h1><span><img src="./image.png" width="100" height="100"></img></span></h1>
           </div>
 
           {/* Search Bar */}
           <div className="hidden md:flex flex-1 max-w-2xl mx-8">
-            <div className="relative bg-white rounded-lg w-full">
+            <div className="relative w-full">
               <input
                 type="text"
                 placeholder="Search for products, brands and more..."
@@ -130,7 +130,7 @@ const Header: React.FC<HeaderProps> = ({
                 closeAllModals();
                 setShowCart(!showCart);
               }}
-              className="relative hover:scale-110 transition-transform duration-200"
+              className="relative hover:scale-110 transition"
             >
               <ShoppingCart size={28} />
               {cartCount > 0 && (
