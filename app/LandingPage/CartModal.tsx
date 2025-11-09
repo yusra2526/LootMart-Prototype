@@ -41,11 +41,11 @@ const CartModal: React.FC<CartModalProps> = ({
   return (
     <>
       <div 
-        className="fixed inset-0 bg-opacity-50 z-40"
+        className="fixed inset-0 bg-opacity-10 backdrop-blur-sm z-40"
         onClick={() => setShowCart(false)}
       />
       <div className="fixed top-0 right-0 h-full bg-white w-full md:w-96 z-50 shadow-2xl overflow-y-auto">
-        <div className="sticky top-0 bg-linear-to-r from-orange-500 to-yellow-500 text-white p-4 flex items-center justify-between">
+        <div className="sticky top-0 bg-gradient-to-r from-orange-500 to-yellow-500 text-white p-4 flex items-center justify-between">
           <h3 className="font-bold text-xl flex items-center gap-2">
             <ShoppingCart size={24} />
             Cart ({cartCount})
@@ -71,20 +71,20 @@ const CartModal: React.FC<CartModalProps> = ({
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => updateQuantity(item.id, -1)}
-                            className="bg-gray-200 p-1 rounded hover:bg-gray-300 transition-colors"
+                            className="bg-gray-200 p-1 rounded hover:bg-gray-300"
                           >
                             <Minus size={16} />
                           </button>
                           <span className="font-semibold w-8 text-center">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, 1)}
-                            className="bg-gray-200 p-1 rounded hover:bg-gray-300 transition-colors"
+                            className="bg-gray-200 p-1 rounded hover:bg-gray-300"
                           >
                             <Plus size={16} />
                           </button>
                           <button
                             onClick={() => removeFromCart(item.id)}
-                            className="ml-auto text-red-500 hover:text-red-700 transition-colors"
+                            className="ml-auto text-red-500 hover:text-red-700"
                           >
                             <Trash2 size={18} />
                           </button>
@@ -108,7 +108,7 @@ const CartModal: React.FC<CartModalProps> = ({
                 </div>
                 <div className="flex justify-between text-lg font-bold text-gray-800 pt-2 border-t">
                   <span>Total:</span>
-                  <span className="text-orange-600">Rs {(cartTotal + deliveryFee).toLocaleString()}</span>
+                  <span className="text-orange-600">Rs {cartTotal + deliveryFee}</span>
                 </div>
               </div>
               
@@ -117,7 +117,7 @@ const CartModal: React.FC<CartModalProps> = ({
                   closeAllModals();
                   setShowCheckout(true);
                 }}
-                className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-yellow-600 transition-all mt-4"
+                className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-yellow-600 transition mt-4"
               >
                 Proceed to Checkout
               </button>
@@ -128,7 +128,7 @@ const CartModal: React.FC<CartModalProps> = ({
               <p className="text-gray-500">Your cart is empty</p>
               <button 
                 onClick={() => setShowCart(false)}
-                className="mt-4 text-orange-600 hover:text-orange-700 font-medium transition-colors"
+                className="mt-4 text-orange-600 hover:text-orange-700 font-medium"
               >
                 Continue Shopping
               </button>
